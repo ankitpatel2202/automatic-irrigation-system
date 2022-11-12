@@ -70,17 +70,17 @@ public class SlotServiceImpl implements SlotService {
     }
 
     @Override
-    public SlotDTO updateStatus(SlotDTO slotDTO) {
-        Optional<Slot> optionalSlot = slotRepository.findById(slotDTO.getId());
+    public SlotDTO updateStatus(String id, Status status) {
+        Optional<Slot> optionalSlot = slotRepository.findById(id);
         if(optionalSlot.isPresent()){
             Slot slot = optionalSlot.get();
-            slot.setStatus(slotDTO.getStatus());
+            slot.setStatus(status);
             slotRepository.save(slot);
+            return convertToDTO(slot);
         } else {
-            logger.error("No slot is found with the id: {}", slotDTO.getId());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No slot is found with the id: " + slotDTO.getId());
+            logger.error("No slot is found with the id: {}", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No slot is found with the id: " + id);
         }
-        return slotDTO;
     }
 
     @Override

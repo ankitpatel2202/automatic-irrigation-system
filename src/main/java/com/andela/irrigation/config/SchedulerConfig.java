@@ -23,6 +23,9 @@ public class SchedulerConfig {
     @Value("${irrigation.scheduler.timeUnit:SECONDS}")
     private String schedulerTimeUnit;
 
+    @Value("${irrigation.scheduler.retry:5}")
+    private Integer schedulerRetry;
+
     public Integer getSchedulerThreadPoolSize() {
         return schedulerThreadPoolSize;
     }
@@ -42,5 +45,9 @@ public class SchedulerConfig {
             logger.error("Illegal argument of the scheduler timeUnit filed. Assigning default value : SECONDS", exception);
             return TimeUnit.SECONDS;
         }
+    }
+
+    public Integer getSchedulerRetry() {
+        return schedulerRetry;
     }
 }
