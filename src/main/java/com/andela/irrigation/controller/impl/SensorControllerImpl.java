@@ -55,7 +55,7 @@ public class SensorControllerImpl implements SensorController {
 
     @Override
     public ResponseEntity<SensorDTO> updateSensor(String id, SensorDTO sensorDTO) {
-        SensorDTO sensor = sensorService.addSensor(sensorDTO);
+        SensorDTO sensor = sensorService.updateSensor(id, sensorDTO);
         if(sensor != null){
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path(ID)

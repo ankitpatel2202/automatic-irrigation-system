@@ -22,22 +22,26 @@ public class SensorBuilderImpl implements SensorBuilder {
 
     @Override
     public SensorBuilder setId(String id) {
-        return null;
+        this.id = id;
+        return this;
     }
 
     @Override
     public SensorBuilder setName(String name) {
-        return null;
+        this.name = name;
+        return this;
     }
 
     @Override
     public SensorBuilder setUrl(String url) {
-        return null;
+        this.url = url;
+        return this;
     }
 
     @Override
     public SensorBuilder setPlot(Plot plot) {
-        return null;
+        this.plot = plot;
+        return this;
     }
 
     public Sensor build(){

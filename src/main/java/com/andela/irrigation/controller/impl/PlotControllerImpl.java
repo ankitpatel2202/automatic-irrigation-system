@@ -60,7 +60,7 @@ public class PlotControllerImpl implements PlotController {
 
     @Override
     public ResponseEntity<PlotDTO> updatePlot(String id, PlotDTO plotDTO) {
-        PlotDTO plot = plotService.updatePlot(plotDTO);
+        PlotDTO plot = plotService.updatePlot(id, plotDTO);
         if(plot != null){
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path(ID)

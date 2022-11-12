@@ -49,7 +49,7 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public SensorDTO updateSensor(SensorDTO sensorDTO) {
+    public SensorDTO updateSensor(String id, SensorDTO sensorDTO) {
         Optional<Sensor> optionalSensor = sensorRepository.findById(sensorDTO.getId());
         if(optionalSensor.isPresent()){
             Sensor sensor = optionalSensor.get();
@@ -58,8 +58,8 @@ public class SensorServiceImpl implements SensorService {
             sensor.setPlot(getPlot(sensorDTO.getPlotId()));
             sensorRepository.save(sensor);
         } else {
-            logger.error("No sensor is found with the id: {}", sensorDTO.getId());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No sensor is found with the id: " + sensorDTO.getId());
+            logger.error("No sensor is found with the id: {}", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No sensor is found with the id: " + id);
         }
         return sensorDTO;
     }

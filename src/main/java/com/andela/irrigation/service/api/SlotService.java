@@ -8,7 +8,7 @@ public interface SlotService {
 
     SlotDTO addSlot(SlotDTO slotDTO);
 
-    SlotDTO updateSlot(SlotDTO slotDTO);
+    SlotDTO updateSlot(String id, SlotDTO slotDTO);
 
     SlotDTO updateStatus(SlotDTO slotDTO);
 

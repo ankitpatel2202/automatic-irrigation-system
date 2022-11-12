@@ -44,13 +44,13 @@ public class PlotServiceImpl implements PlotService {
         logger.info("Saving the newly created plot.");
         plotBuilder.create(plot);
 
-        plotDTO.setId(plot.getId());
-        return plotDTO;
+        //plotDTO.setId(plot.getId());
+        return convertToDTO(plot);
     }
 
     @Override
-    public PlotDTO updatePlot(PlotDTO plotDTO) {
-        Optional<Plot> optionalPlot = plotRepository.findById(plotDTO.getId());
+    public PlotDTO updatePlot(String id, PlotDTO plotDTO) {
+        Optional<Plot> optionalPlot = plotRepository.findById(id);
         if(optionalPlot.isPresent()){
             Plot plot = optionalPlot.get();
             plot.setName(plotDTO.getName());
@@ -58,7 +58,7 @@ public class PlotServiceImpl implements PlotService {
             plot.setSlots(getSlots(plotDTO.getSlotIds()));
             plotRepository.save(plot);
         } else {
-            logger.error("No plot is found with the id: {}", plotDTO.getId());
+            logger.error("No plot is found with the id: {}", id);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No plot is found with the id: " + plotDTO.getId());
         }
         return plotDTO;

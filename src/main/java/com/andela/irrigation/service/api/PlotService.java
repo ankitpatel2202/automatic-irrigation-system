@@ -7,7 +7,7 @@ public interface PlotService {
 
     PlotDTO addPlot(PlotDTO plotDTO);
 
-    PlotDTO updatePlot(PlotDTO plotDTO);
+    PlotDTO updatePlot(String id, PlotDTO plotDTO);
 
     PlotDTO getPlot(String id);
 

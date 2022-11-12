@@ -55,7 +55,7 @@ public class SlotControllerImpl implements SlotController {
 
     @Override
     public ResponseEntity<SlotDTO> updateSlot(String id, SlotDTO slotDTO) {
-        SlotDTO slot = slotService.updateSlot(slotDTO);
+        SlotDTO slot = slotService.updateSlot(id, slotDTO);
         if(slot != null){
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path(ID)

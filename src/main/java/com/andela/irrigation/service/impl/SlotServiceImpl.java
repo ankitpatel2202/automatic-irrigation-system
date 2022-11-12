@@ -53,8 +53,8 @@ public class SlotServiceImpl implements SlotService {
     }
 
     @Override
-    public SlotDTO updateSlot(SlotDTO slotDTO) {
-        Optional<Slot> optionalSlot = slotRepository.findById(slotDTO.getId());
+    public SlotDTO updateSlot(String id, SlotDTO slotDTO) {
+        Optional<Slot> optionalSlot = slotRepository.findById(id);
         if(optionalSlot.isPresent()){
             Slot slot = optionalSlot.get();
             slot.setName(slot.getName());
@@ -63,8 +63,8 @@ public class SlotServiceImpl implements SlotService {
             slot.setPlot(getPlot(slotDTO.getPlotId()));
             slotRepository.save(slot);
         } else {
-            logger.error("No slot is found with the id: {}", slotDTO.getId());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No slot is found with the id: " + slotDTO.getId());
+            logger.error("No slot is found with the id: {}", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No slot is found with the id: " + id);
         }
         return slotDTO;
     }
