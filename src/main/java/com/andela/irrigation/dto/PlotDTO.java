@@ -12,9 +12,6 @@ import java.util.Set;
 @ToString
 public class PlotDTO {
     private String id;
-
-    @JsonProperty("name")
-    @NotBlank(message = "Plot's name is mandatory")
     private String name;
     private Set<String> slotIds = new LinkedHashSet<>();
     private String sensorId;
