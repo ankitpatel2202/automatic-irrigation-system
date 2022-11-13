@@ -19,7 +19,7 @@ Java version: Java 11
 
 # Database configuration
 
-For Database, as of now we haves supported ms-sql and postgess databases. this can be configured on application.properties as:
+For Database, as of now we haves supported relational databases. this can be configured on application.properties as:
 
 spring.datasource.url=jdbc:h2:mem:testdb
 
