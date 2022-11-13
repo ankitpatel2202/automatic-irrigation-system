@@ -8,9 +8,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
-@Table(name= "plots")
+@Table(name= "slots")
 @Data
 public class Slot {
 
@@ -39,4 +40,24 @@ public class Slot {
     @JoinColumn(name = "plot_id")
     @JsonProperty("plot")
     private Plot plot;
+
+    @PreRemove
+    public void dismissPlot(){
+        if(plot != null){
+            this.plot.removeSlot(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Slot slot = (Slot) o;
+        return Objects.equals(id, slot.id) && Objects.equals(name, slot.name) && Objects.equals(waterRequired, slot.waterRequired) && Objects.equals(startTime, slot.startTime) && Objects.equals(endTime, slot.endTime) && status == slot.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, waterRequired, startTime, endTime, status);
+    }
 }

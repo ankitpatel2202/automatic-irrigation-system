@@ -76,6 +76,7 @@ public class SlotBuilderImpl implements SlotBuilder {
         Slot slot = new Slot();
         slot.setId(id);
         slot.setName(name);
+        slot.setWaterRequired(waterRequired);
         slot.setStartTime(startTime);
         slot.setEndTime(endTime);
         slot.setStatus(status);

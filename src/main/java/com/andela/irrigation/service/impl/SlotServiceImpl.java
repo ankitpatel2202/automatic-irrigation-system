@@ -57,16 +57,17 @@ public class SlotServiceImpl implements SlotService {
         Optional<Slot> optionalSlot = slotRepository.findById(id);
         if(optionalSlot.isPresent()){
             Slot slot = optionalSlot.get();
-            slot.setName(slot.getName());
+            slot.setName(slotDTO.getName());
+            slot.setWaterRequired(slotDTO.getWaterRequired());
             slot.setStartTime(slotDTO.getStartTime());
             slot.setEndTime(slotDTO.getEndTime());
             slot.setPlot(getPlot(slotDTO.getPlotId()));
             slotRepository.save(slot);
+            return convertToDTO(slot);
         } else {
             logger.error("No slot is found with the id: {}", id);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No slot is found with the id: " + id);
         }
-        return slotDTO;
     }
 
     @Override
@@ -115,6 +116,10 @@ public class SlotServiceImpl implements SlotService {
     }
 
     private Plot getPlot(String id){
+        if(null == id || id.isEmpty()){
+            logger.error("invalid argument");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Plot id must not be empty");
+        }
         Optional<Plot> optionalPlot = plotRepository.findById(id);
         if(optionalPlot.isPresent()){
             return optionalPlot.get();

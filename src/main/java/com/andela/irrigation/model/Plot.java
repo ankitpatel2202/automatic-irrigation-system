@@ -29,9 +29,15 @@ public class Plot {
 
     public void addSlot(Slot slot){
         slots.add(slot);
+        slot.setPlot(this);
     }
 
     public void removeSlot(Slot slot){
         slots.remove(slot);
+    }
+
+    @PreRemove
+    public void clearSlotsOnDelete(){
+        this.slots.clear();
     }
 }
