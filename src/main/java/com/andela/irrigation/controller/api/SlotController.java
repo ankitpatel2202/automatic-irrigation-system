@@ -35,6 +35,6 @@ public interface SlotController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "delete a slot"),
             @ApiResponse(responseCode = "404", description = "Slot not found")})
-    @DeleteMapping(path = "/api/v1/slots/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/api/v1/slots/{id}")
     ResponseEntity<Object> deleteSlot(@PathVariable(name = "id", required = true) @NotBlank String id);
 }

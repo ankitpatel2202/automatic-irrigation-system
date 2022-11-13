@@ -36,6 +36,6 @@ public interface PlotController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "delete a plot"),
             @ApiResponse(responseCode = "404", description = "Plot not found")})
-    @DeleteMapping(path = "/api/v1/plots/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/api/v1/plots/{id}")
     ResponseEntity<Object> deletePlot(@PathVariable(name = "id", required = true) @NotBlank String id);
 }

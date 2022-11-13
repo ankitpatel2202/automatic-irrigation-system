@@ -92,6 +92,10 @@ public class PlotServiceImpl implements PlotService {
     }
 
     private Sensor getSensor(String id){
+        if(null == id || id.isEmpty()){
+            logger.error("invalid argument");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "sensor id must not be empty");
+        }
        Optional<Sensor> optionalSensor = sensorRepository.findById(id);
        if(optionalSensor.isPresent()){
            return optionalSensor.get();

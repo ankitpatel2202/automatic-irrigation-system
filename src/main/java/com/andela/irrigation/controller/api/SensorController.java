@@ -35,6 +35,6 @@ public interface SensorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "delete a sensor"),
             @ApiResponse(responseCode = "404", description = "Sensor not found")})
-    @DeleteMapping(path = "/api/v1/sensors/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/api/v1/sensors/{id}")
     ResponseEntity<Object> deleteSensor(@PathVariable(name = "id", required = true) @NotBlank String id);
 }
