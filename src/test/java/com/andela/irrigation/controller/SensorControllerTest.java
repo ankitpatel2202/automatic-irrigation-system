@@ -1,8 +1,6 @@
 package com.andela.irrigation.controller;
 
-import com.andela.irrigation.dto.PlotDTO;
 import com.andela.irrigation.dto.SensorDTO;
-import com.andela.irrigation.dto.SlotDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
