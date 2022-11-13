@@ -192,9 +192,4 @@ public class SlotControllerTest {
         slotDTO.setStatus(Status.INACTIVE);
         return slotDTO;
     }
-
-    @AfterEach
-    private void cleanup(){
-
-    }
 }
