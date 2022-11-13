@@ -101,8 +101,6 @@ public class SlotControllerTest {
         result = restTemplate.postForEntity("http://localhost:" + port + "/api/v1/slots",slotDTO, Object.class);
         Assertions.assertEquals(HttpStatus.CREATED, result.getStatusCode());
 
-        SlotDTO slotCreated = modelMapper.map(result.getBody(), SlotDTO.class);
-
         // Get all Plots
         ResponseEntity<List<SlotDTO>> response = restTemplate.exchange("http://localhost:" + port + "/api/v1/slots/", HttpMethod.GET, null, new ParameterizedTypeReference<List<SlotDTO>>() {
         });
@@ -110,7 +108,7 @@ public class SlotControllerTest {
 
         List<SlotDTO> slots = response.getBody();
         assert slots != null;
-        Assertions.assertEquals(2, slots.size()); // there should be 3 entries for slots as one of the entries being populated via script
+        Assertions.assertEquals(2, slots.size());
 
         System.out.println("Completed - Test Get all slot");
     }

@@ -7,6 +7,8 @@ import com.andela.irrigation.repository.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
+
 @Component
 public class SensorBuilderImpl implements SensorBuilder {
 
@@ -49,7 +51,11 @@ public class SensorBuilderImpl implements SensorBuilder {
         sensor.setId(id);
         sensor.setName(name);
         sensor.setUrl(url);
+
         sensor.setPlot(plot);
+        if(plot != null)
+            plot.setSensor(sensor);
+
         return sensor;
     }
 

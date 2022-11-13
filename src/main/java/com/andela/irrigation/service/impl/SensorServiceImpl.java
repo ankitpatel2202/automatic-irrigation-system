@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,18 +35,23 @@ public class SensorServiceImpl implements SensorService {
     @Autowired private ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public SensorDTO addSensor(SensorDTO sensorDTO) {
         Sensor sensor = sensorBuilder
                 .setId(UUID.randomUUID().toString())
                 .setName(sensorDTO.getName())
                 .setUrl(sensorDTO.getUrl())
-                .setPlot(getPlot(sensorDTO.getPlotId()))
                 .build();
-        logger.info("Saving the newly created sensor.");
-        sensorBuilder.create(sensor);
 
-        sensorDTO.setId(sensor.getId());
-        return sensorDTO;
+        Plot plot = getPlot(sensorDTO.getPlotId());
+        plot.setSensor(sensor);
+        plotRepository.save(plot);
+
+        logger.info("Saving the newly created sensor.");
+        sensor.setPlot(plot);
+        sensorRepository.save(sensor);
+
+        return convertToDTO(sensor);
     }
 
     @Override
@@ -53,9 +59,14 @@ public class SensorServiceImpl implements SensorService {
         Optional<Sensor> optionalSensor = sensorRepository.findById(sensorDTO.getId());
         if(optionalSensor.isPresent()){
             Sensor sensor = optionalSensor.get();
-            sensor.setName(sensor.getName());
+            sensor.setName(sensorDTO.getName());
             sensor.setUrl(sensorDTO.getUrl());
-            sensor.setPlot(getPlot(sensorDTO.getPlotId()));
+
+            Plot plot = getPlot(sensorDTO.getPlotId());
+            plot.setSensor(sensor);
+            plotRepository.save(plot);
+
+            sensor.setPlot(plot);
             sensorRepository.save(sensor);
         } else {
             logger.error("No sensor is found with the id: {}", id);

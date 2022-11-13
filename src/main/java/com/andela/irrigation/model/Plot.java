@@ -23,6 +23,7 @@ public class Plot {
     @OneToMany(mappedBy = "plot", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Slot> slots = new LinkedHashSet<>();
 
+    //@JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_id", referencedColumnName = "id")
     private Sensor sensor;

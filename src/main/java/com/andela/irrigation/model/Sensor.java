@@ -1,5 +1,6 @@
 package com.andela.irrigation.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,14 @@ public class Sensor {
     @Column(name = "url")
     private String url;
 
-    @OneToOne(mappedBy = "sensor")
+    //@JsonManagedReference
+    @OneToOne(mappedBy = "sensor", cascade = CascadeType.PERSIST)
     private Plot plot;
+
+    @PreRemove
+    private void dismissPlot(){
+        if(plot != null){
+            plot.setSensor(null);
+        }
+    }
 }
